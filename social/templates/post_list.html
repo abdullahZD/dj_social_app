@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container bg-light shadow-md p-5 form-layout">
+        <h2>All Posts</h2>
+        <hr>
+        <form method="GET" action="{% url 'post_list' %}" class="form-inline mb-3">
+            <input type="text" name="q" class="form-control" placeholder="Search posts..." value="{{ request.GET.q }}">
+            <button type="submit" class="btn btn-outline-primary ml-2">
+                Search <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </form>
+
+        {% if posts %}
+            <ul class="list-group">
+                {% for post in posts %}
+                    <li class="list-group-item">
+                        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                        <span class="text-muted"> by {{ post.author.username }} on {{ post.created_at }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No posts found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

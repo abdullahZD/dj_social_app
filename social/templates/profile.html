@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container bg-light shadow-md p-5 form-layout">
+        <h2 class="text-center">{{ profile.user.username }}'s Profile</h2>
+        <hr>
+        <p><strong>Email:</strong> {{ profile.user.email }}</p>
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+
+        <h3>My Posts</h3>
+        <hr>
+        {% if posts %}
+            <ul class="list-group">
+                {% for post in posts %}
+                    <li class="list-group-item">
+                        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no posts yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}
